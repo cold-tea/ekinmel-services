@@ -30,4 +30,8 @@ public class UserService {
     public long countUserByUsername(User user) {
         return userRepository.countByUsername(user.getUsername());
     }
+
+    public long countUserByEmail(User user) {
+        return userRepository.countByEmail(user.getEmail());
+    }
 }
