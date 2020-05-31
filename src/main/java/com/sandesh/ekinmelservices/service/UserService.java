@@ -1,7 +1,7 @@
-package com.sandesh.ekinmelservices.services;
+package com.sandesh.ekinmelservices.service;
 
-import com.sandesh.ekinmelservices.models.User;
-import com.sandesh.ekinmelservices.repositories.UserRepository;
+import com.sandesh.ekinmelservices.model.User;
+import com.sandesh.ekinmelservices.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

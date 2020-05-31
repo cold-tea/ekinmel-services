@@ -1,12 +1,14 @@
 package com.sandesh.ekinmelservices;
 
-import com.sandesh.ekinmelservices.models.Status;
+import com.sandesh.ekinmelservices.model.Status;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.client.RestTemplate;
 
 @SpringBootApplication
+@CrossOrigin
 public class EkinmelServicesApplication {
 
     @Bean

@@ -1,8 +1,8 @@
-package com.sandesh.ekinmelservices.controllers;
+package com.sandesh.ekinmelservices.controller;
 
-import com.sandesh.ekinmelservices.models.Status;
-import com.sandesh.ekinmelservices.models.User;
-import com.sandesh.ekinmelservices.services.UserService;
+import com.sandesh.ekinmelservices.model.Status;
+import com.sandesh.ekinmelservices.model.User;
+import com.sandesh.ekinmelservices.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

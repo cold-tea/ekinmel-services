@@ -1,4 +1,4 @@
-package com.sandesh.ekinmelservices.models;
+package com.sandesh.ekinmelservices.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 

@@ -1,7 +1,7 @@
 package com.sandesh.ekinmelservices;
 
-import com.sandesh.ekinmelservices.models.User;
-import com.sandesh.ekinmelservices.services.UserService;
+import com.sandesh.ekinmelservices.model.User;
+import com.sandesh.ekinmelservices.service.UserService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

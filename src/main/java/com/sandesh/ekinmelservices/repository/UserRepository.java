@@ -1,8 +1,7 @@
-package com.sandesh.ekinmelservices.repositories;
+package com.sandesh.ekinmelservices.repository;
 
-import com.sandesh.ekinmelservices.models.User;
+import com.sandesh.ekinmelservices.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 @Repository
