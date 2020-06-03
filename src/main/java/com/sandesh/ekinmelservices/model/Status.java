@@ -21,24 +21,27 @@ public class Status implements Serializable {
         return message;
     }
 
-    public void setMessage(String message) {
+    public Status setMessage(String message) {
         this.message = message;
+        return this;
     }
 
     public String getExMessage() {
         return exMessage;
     }
 
-    public void setExMessage(String exMessage) {
+    public Status setExMessage(String exMessage) {
         this.exMessage = exMessage;
+        return this;
     }
 
     public String getOperation() {
         return operation;
     }
 
-    public void setOperation(String operation) {
+    public Status setOperation(String operation) {
         this.operation = operation;
+        return this;
     }
 
     @Override

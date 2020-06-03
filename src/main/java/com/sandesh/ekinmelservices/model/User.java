@@ -1,5 +1,6 @@
 package com.sandesh.ekinmelservices.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
@@ -16,6 +17,7 @@ public class User implements Serializable {
     @Column(name = "USERNAME")
     private String username;
     @Column(name = "PASSWORD")
+    @JsonIgnore
     private String password;
     @Column(name = "ENABLED")
     private char enabled;
