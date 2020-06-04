@@ -12,27 +12,24 @@ import java.util.List;
 
 @Getter
 @Setter
-@NoArgsConstructor
+@Data
 @RequiredArgsConstructor
 @AllArgsConstructor
-@Data
+@NoArgsConstructor
 @Entity
-@Table(name = "CATEGORY_DETAIL", uniqueConstraints =
-        {@UniqueConstraint(columnNames = {"NAME", "CATEGORY_ID"}, name = "UNQ_CATD_NAME_CATEGORYID")})
-public class CategoryDetail implements Serializable {
+@Table(name = "CATEGORY_FILTER", uniqueConstraints =
+        {@UniqueConstraint(columnNames = {"NAME", "CATEGORY_DETAIL_ID"},
+                name = "UNQ_CATF_NAME_CATEGORYDETAILID")})
+public class CategoryFilter implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "CATEGORY_DETAIL_GENERATOR")
-    @SequenceGenerator(name = "CATEGORY_DETAIL_GENERATOR", sequenceName = "SEQ_CATEGORY_DETAIL", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "CATEGORY_FILTER_GENERATOR")
+    @SequenceGenerator(name = "CATEGORY_FILTER_GENERATOR", sequenceName = "SEQ_CATEGORY_FILTER", allocationSize = 1)
     private Integer id;
 
     @Column(name = "NAME")
     @NonNull
     private String name;
-
-    @Column(name = "DESCRIPTION")
-    @NonNull
-    private String description;
 
     @Column(name = "CODE")
     @NonNull
@@ -44,11 +41,12 @@ public class CategoryDetail implements Serializable {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonBackReference
-    @JoinColumn(name = "CATEGORY_ID", referencedColumnName = "ID")
-    private Category category;
+    @JoinColumn(name = "CATEGORY_DETAIL_ID", referencedColumnName = "ID")
+    private CategoryDetail categoryDetail;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "categoryDetail")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "categoryFilter")
     @JsonManagedReference
     @LazyCollection(LazyCollectionOption.FALSE)
-    private List<CategoryFilter> categoryFilters;
+    private List<CategoryFilterDetail> categoryFilterDetails;
 }
+

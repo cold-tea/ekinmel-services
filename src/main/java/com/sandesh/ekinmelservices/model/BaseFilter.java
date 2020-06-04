@@ -7,7 +7,8 @@ import java.io.Serializable;
 import java.util.List;
 
 @Entity
-@Table(name = "BASE_FILTER")
+@Table(name = "BASE_FILTER", uniqueConstraints =
+        {@UniqueConstraint(columnNames={"NAME"}, name = "UNQ_BASEF_NAME")})
 public class BaseFilter extends Filter implements Serializable {
 
     @OneToMany(mappedBy = "baseFilter", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
