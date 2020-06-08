@@ -1,6 +1,7 @@
 package com.sandesh.ekinmelservices.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 import org.hibernate.annotations.LazyCollection;
@@ -10,8 +11,6 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
 
-@Getter
-@Setter
 @Data
 @RequiredArgsConstructor
 @AllArgsConstructor

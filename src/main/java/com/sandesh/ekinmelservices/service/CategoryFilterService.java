@@ -1,5 +1,6 @@
 package com.sandesh.ekinmelservices.service;
 
+import com.sandesh.ekinmelservices.model.CategoryDetail;
 import com.sandesh.ekinmelservices.model.CategoryFilter;
 import com.sandesh.ekinmelservices.repository.CategoryFilterRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,5 +16,9 @@ public class CategoryFilterService {
 
     public List<CategoryFilter> getAllCategoryFilters() {
         return categoryFilterRepository.findAll();
+    }
+
+    public List<CategoryFilter> getCategoryFiltersByCategoryDetail(CategoryDetail categoryDetail) {
+        return categoryFilterRepository.findByCategoryDetail(categoryDetail);
     }
 }

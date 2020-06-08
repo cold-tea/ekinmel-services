@@ -6,8 +6,6 @@ import lombok.*;
 import javax.persistence.*;
 import java.io.Serializable;
 
-@Getter
-@Setter
 @Data
 @RequiredArgsConstructor
 @AllArgsConstructor
