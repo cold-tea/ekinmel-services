@@ -1,13 +1,17 @@
 package com.sandesh.ekinmelservices.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -53,4 +57,9 @@ public class PostDetail implements Serializable {
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "DELIVERY_ID", referencedColumnName = "ID")
     private Delivery delivery;
+
+    @OneToMany(mappedBy = "postDetail", cascade = CascadeType.ALL)
+    @JsonManagedReference
+    @LazyCollection(LazyCollectionOption.FALSE)
+    private List<PostImage> postImages;
 }
