@@ -26,7 +26,7 @@ public class Delivery implements Serializable {
     private char delivery;
 
     @Column(name = "DELIVERY_AREA")
-    private char deliveryArea;
+    private String deliveryArea;
 
     @Column(name = "DELIVERY_PRICE")
     private double deliveryPrice;

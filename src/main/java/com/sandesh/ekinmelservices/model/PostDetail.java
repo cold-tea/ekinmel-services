@@ -38,9 +38,6 @@ public class PostDetail implements Serializable {
     @Column(name = "DESCRIPTION")
     private String description;
 
-    @Column(name = "IMAGE_URL")
-    private String imageUrl;
-
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "USERNAME", referencedColumnName = "USERNAME")
     private User user;

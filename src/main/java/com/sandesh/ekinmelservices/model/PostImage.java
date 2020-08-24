@@ -13,7 +13,9 @@ import javax.persistence.*;
 @AllArgsConstructor
 @ToString
 @Entity
-@Table(name = "IMAGE")
+@Table(name = "IMAGE", uniqueConstraints = {
+        @UniqueConstraint(columnNames = {"POST_DETAIL_ID", "IMAGE_URL"}, name = "UNQ_IMAGE_POSTDETAILID_IMAGEURL")
+})
 public class PostImage {
 
     @Id
@@ -26,7 +28,7 @@ public class PostImage {
     private String image_url;
 
     @Column(name = "THUMBNAIL")
-    private char thumbnail;
+    private Character thumbnail;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "POST_DETAIL_ID", referencedColumnName = "ID")
