@@ -1,7 +1,7 @@
 package com.sandesh.ekinmelservices.service;
 
-import com.sandesh.ekinmelservices.model.Category;
 import com.sandesh.ekinmelservices.interfaces.CategoryView;
+import com.sandesh.ekinmelservices.model.Category;
 import com.sandesh.ekinmelservices.repository.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;

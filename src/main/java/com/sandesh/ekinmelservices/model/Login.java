@@ -5,11 +5,13 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+import java.io.Serializable;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class Login {
+public class Login implements Serializable {
 
     private String username;
     private String password;

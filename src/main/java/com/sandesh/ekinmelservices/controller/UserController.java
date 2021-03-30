@@ -1,10 +1,11 @@
 package com.sandesh.ekinmelservices.controller;
 
 import com.sandesh.ekinmelservices.exception.UserExistsException;
-import com.sandesh.ekinmelservices.model.Login;
-import com.sandesh.ekinmelservices.model.Status;
+import com.sandesh.ekinmelservices.exception.UserNotFoundException;
 import com.sandesh.ekinmelservices.model.User;
 import com.sandesh.ekinmelservices.service.UserService;
+import io.swagger.annotations.ApiOperation;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,24 +13,28 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.HttpClientErrorException;
 
+import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
+@Slf4j
 @RestController
-@RequestMapping("rest/users")
+@RequestMapping("/rest/users")
 @CrossOrigin(origins = "http://localhost:3000", maxAge = 3600)
 public class UserController {
 
-    @Autowired
-    private UserService userService;
+    private final UserService userService;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Autowired
-    private Status status;
+    public UserController(UserService userService) {
+        this.userService = userService;
+        bCryptPasswordEncoder = new BCryptPasswordEncoder();
+    }
 
     @GetMapping(value = "/count/{username}")
     public Long getUsercount(@PathVariable String username) {
-        User user = new User();
-        user.setUsername(username);
-        return userService.countUserByUsername(user);
+        return userService.countUserByUsername(username);
     }
 
     @GetMapping(value = "/countEmail/{email}")
@@ -45,37 +50,40 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.OK).body(users);
     }
 
-    @PostMapping(value = "/authenticate")
-    public ResponseEntity<?> validateUser(@RequestBody Login login) {
-        User user = userService.getSingleByUsername(login.getUsername());
-        if (user == null) return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Username not Found !!");
-        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-        System.out.println(login.getPassword());
-        if (encoder.matches(user.getPassword(), login.getPassword()))
-            return ResponseEntity.status(HttpStatus.OK).body(user);
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Username and password does not match !!");
-    }
-
     @GetMapping(value = "/{username}")
-    public ResponseEntity<User> getUserByUsername(@PathVariable("username") String username) {
+    @ResponseStatus(HttpStatus.OK)
+    @ApiOperation(value = "Gets user by username.",
+            notes = "Provided a username will search and return user if present",
+            httpMethod = "GET Method",
+            response = User.class)
+    public User getUserByUsername(@PathVariable("username") String username) {
         User user = userService.getSingleByUsername(username);
-        if (user == null) return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-        return ResponseEntity.status(HttpStatus.OK).body(user);
+        if (user == null) throw new UserNotFoundException("User " + username + " not found !!");
+        return user;
     }
 
     @PostMapping
-    public ResponseEntity<Status> saveUser(@RequestBody User user) {
+    @ResponseStatus(HttpStatus.CREATED)
+    public void saveUser(@RequestBody User user) {
         if (user == null) throw new IllegalArgumentException("User passed is not supported");
-        else if (userService.countUserByUsername(user) > 0)
-            throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "User already exists!!");
+        else if (userService.countUserByUsername(user.getUsername()) > 0)
+            throw new UserExistsException("User " + user.getUsername() + " already exists !!");
+        user.setRegisterDate(new Date());
+        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         userService.saveUser(user);
-        System.out.println("Everything good");
-        return ResponseEntity.status(HttpStatus.OK).body(new Status());
     }
 
-    @ExceptionHandler(UserExistsException.class)
-    public ResponseEntity<Status> globalExceptionThrown(Exception ex) {
-        status.setExMessage(ex.getMessage());
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(status);
+    @PutMapping("/{username}")
+    public ResponseEntity<?> updateUser(@PathVariable("username") String username, @RequestBody User user) {
+        if (!username.equalsIgnoreCase(user.getUsername()))
+            throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "Username cannot be updated");
+        User existingUser = userService.getSingleByUsername(username);
+        if (Objects.isNull(existingUser))
+            throw new HttpClientErrorException(HttpStatus.NOT_FOUND, "User " + user.getUsername() + " not found !!");
+        user.setUsername(username);
+        user.setRegisterDate(existingUser.getRegisterDate());
+        user.setPassword(existingUser.getPassword());
+        userService.saveUser(user);
+        return ResponseEntity.ok("User " + username + " updated");
     }
 }

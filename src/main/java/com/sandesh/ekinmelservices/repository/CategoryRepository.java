@@ -1,7 +1,7 @@
 package com.sandesh.ekinmelservices.repository;
 
-import com.sandesh.ekinmelservices.model.Category;
 import com.sandesh.ekinmelservices.interfaces.CategoryView;
+import com.sandesh.ekinmelservices.model.Category;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;

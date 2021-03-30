@@ -11,13 +11,29 @@ import org.springframework.web.client.HttpClientErrorException;
 @ControllerAdvice
 public class GlobalExHandler {
 
+    private final Status status;
+
     @Autowired
-    private Status status;
+    public GlobalExHandler(Status status) {
+        this.status = status;
+    }
 
     @ExceptionHandler(HttpClientErrorException.class)
     public ResponseEntity<Status> exceptionForHttpClientError(HttpClientErrorException ex) {
         status.setExMessage(ex.getMessage());
         return ResponseEntity.status(ex.getStatusCode()).body(status);
+    }
+
+    @ExceptionHandler(UserExistsException.class)
+    public ResponseEntity<Status> userExistsException(UserExistsException ex) {
+        status.setExMessage(ex.getMessage());
+        return ResponseEntity.badRequest().body(status);
+    }
+
+    @ExceptionHandler(UserNotFoundException.class)
+    public ResponseEntity<Status> userNotFoundException(UserNotFoundException ex) {
+        status.setExMessage(ex.getMessage());
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(status);
     }
 
     @ExceptionHandler(Exception.class)

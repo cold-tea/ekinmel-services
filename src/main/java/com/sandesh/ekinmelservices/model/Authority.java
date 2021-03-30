@@ -10,10 +10,10 @@ import java.io.Serializable;
 public class Authority implements Serializable {
 
     @Id
-    @Column(name = "ID")
+    @Column(name = "ID", updatable = false, nullable = false)
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
-    @Column(name = "ROLE")
+    @Column(name = "ROLE", nullable = false)
     private String role;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "USERNAME", referencedColumnName = "USERNAME")

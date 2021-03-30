@@ -2,7 +2,6 @@ package com.sandesh.ekinmelservices.service;
 
 import com.sandesh.ekinmelservices.model.User;
 import com.sandesh.ekinmelservices.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -12,8 +11,11 @@ import java.util.List;
 @Transactional
 public class UserService {
 
-    @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
+
+    public UserService(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
     public List<User> getAllUsers() {
         return userRepository.findAll();
@@ -27,8 +29,8 @@ public class UserService {
         userRepository.save(user);
     }
 
-    public long countUserByUsername(User user) {
-        return userRepository.countByUsername(user.getUsername());
+    public long countUserByUsername(String username) {
+        return userRepository.countByUsername(username);
     }
 
     public long countUserByEmail(User user) {
