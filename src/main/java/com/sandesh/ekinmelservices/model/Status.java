@@ -46,10 +46,10 @@ public class Status implements Serializable {
 
     @Override
     public String toString() {
-        return "Status{" +
-                "message='" + message + '\'' +
-                ", exMessage='" + exMessage + '\'' +
-                ", operation='" + operation + '\'' +
+        return "{" +
+                "message:'" + message + '\'' +
+                ", exMessage:'" + exMessage + '\'' +
+                ", operation:'" + operation + '\'' +
                 '}';
     }
 }

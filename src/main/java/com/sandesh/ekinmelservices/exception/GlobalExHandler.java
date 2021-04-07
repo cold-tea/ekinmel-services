@@ -1,5 +1,6 @@
 package com.sandesh.ekinmelservices.exception;
 
+import com.sandesh.ekinmelservices.filter.InvalidJWTTokenException;
 import com.sandesh.ekinmelservices.model.Status;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -34,6 +35,18 @@ public class GlobalExHandler {
     public ResponseEntity<Status> userNotFoundException(UserNotFoundException ex) {
         status.setExMessage(ex.getMessage());
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(status);
+    }
+
+    @ExceptionHandler(InvalidUserCredentialException.class)
+    public ResponseEntity<Status> invalidUserCredentialException(InvalidUserCredentialException ex) {
+        status.setExMessage(ex.getMessage());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(status);
+    }
+
+    @ExceptionHandler(InvalidJWTTokenException.class)
+    public ResponseEntity<Status> invalidjwtTokenException(InvalidJWTTokenException ex) {
+        status.setExMessage(ex.getMessage());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(status);
     }
 
     @ExceptionHandler(Exception.class)

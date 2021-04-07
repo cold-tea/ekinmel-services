@@ -3,9 +3,9 @@ package com.sandesh.ekinmelservices.exception;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
-public class UserNotFoundException extends RuntimeException {
+public class InvalidUserCredentialException extends RuntimeException{
 
-    public UserNotFoundException(String message) {
+    public InvalidUserCredentialException(String message) {
         super(message);
     }
 }
