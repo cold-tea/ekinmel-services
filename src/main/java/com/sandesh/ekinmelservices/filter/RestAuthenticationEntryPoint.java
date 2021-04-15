@@ -17,7 +17,7 @@ public class RestAuthenticationEntryPoint implements AuthenticationEntryPoint {
         // We should just send a 401 Unauthorized response because there is no 'login page' to redirect to
         Status status = new Status("Unauthenticated", "Unanuthenticated request", "UNAUTHENTICATED");
         httpServletResponse.setContentType("application/json;charset=UTF-8");
-        httpServletResponse.setStatus(HttpServletResponse.SC_FORBIDDEN);
+        httpServletResponse.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
         httpServletResponse.getWriter().write(new ObjectMapper().writeValueAsString(status));
     }
 }
